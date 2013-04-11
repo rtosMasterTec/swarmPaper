@@ -6,8 +6,8 @@
 \title{Collision avoidance for robot swarms focused on maneuvering and data collection rate from a RTOS approach}
 
 \author{Yu~Shan~Hsieh,~\IEEEmembership{Engineer,~Hewlett Packard,}
-   Ignacio~Garita,~\IEEEmembership{Engineer,~Hewlett Packard,}
-   and Horacio~Hidalgo,~\IEEEmembership{Engineer,~Hewlett Packard}%
+	Ignacio~Garita,~\IEEEmembership{Engineer,~Hewlett Packard,}
+        Horacio~Hidalgo,~\IEEEmembership{Engineer,~Hewlett Packard}%
 \thanks{}%
 % The paper headers
 \markboth{Journal of ITCR, April~2013}%
@@ -18,14 +18,138 @@
 
 % in the abstract or keywords.
 \begin{abstract}
-
+The ability to convey critical information promptly and efficiently between robots
+swarms is critical in collision avoidance scenarios. Different approaches to data collection
+are important considerations that must be taken in Real Time Systems where different “units” must
+effectively coordinate spatial movement to prevent collisions. Through the use of the computer
+networking concepts usch as the multicast protocol, our team has devised a new method for
+data collection in order to meet the timing constraints of a dynamic system such as this. The multicast
+concept allows for information management and establishment of policies related to a set of
+subscribers to a particular multicast group, which receives messages from a spatial element who
+manages and coordinates information and policies between the subscribed elements. The dynamics
+of different multicast groups (of which a single subscriber can be a part of many) creates localized
+information hubs and information that need not be distributed across entire networks. The resulting
+hubs are flexible, sometimes redundant, localized environments that have better adaptability
+to the immediate surroundings. Future studies and application of this networking concept can
+provide legitimization of the algorithms presented here; for example, use of robots swarms in an
+environment which is not homogeneous and where subscribers will obtain only relevant information
+to a specific area of this environment.
 \end{abstract}
 
+\begin{IEEEkeywords}
+MCAST, collision avoidance, RTOS, data collection, manuevering.
+\end{IEEEkeywords}
+
 \section{Introduction}
-\IEEEPARstart{I}{n} 
+\IEEEPARstart{A}{d}vances in technology have allowed automatons to gradually replace humans in many tasks involving control. Automated spacecrafts and UAVs (Unmanned Aerial Vehicle) are being heavily deployed in todays military operations and the scientific
+community uses unmanned spacecrafts in space explorations. Although these automatons are usually expensive and sophisticated, more economic solutions are now being used in civilian applications [YS1].
+
+Well established engineering technologies have been made for these mobile UAVs to move around as a single unit and most of the time you will see a military drone fly alone to strike its target and then escape without being traced.
+Or a single spacecraft wandering over the surface of Mars and other planets. And rarely if not never will you see more than one Google vehicle cruising through the streets and roads to map every block of the city. Will the era of large fleet of planes like those of World War I and II one day return? Back in those times, large formations of planes consisting of many light fighters would often accompany a few large bomber in its bombing mission. Should a hostile plane come into the area to take the bomber down, the fighters will break formation, attack the intruder and return to guard the bomber. Such behaviour can be described as a swarm behaviour as it is similar to the movement of a swarm of bees or a flock of birds. Popular culture[YS2] in television and science fiction forsee the return of these swarm-like formations, often depicted in the form warplanes and spacecrafts using it's advantage in numbers to spam and overwhelm the opponent. Returning to the present real world, imagine a large fleet of unmanned spacecraft moving in a formations across Mars; if one or few vehicles stumbles upon a large obstacle such as a lake or a crater, it can quickly inform the other spacecrafts behind him to detour and find another route. And if one of the spacecrafts breaks down or gets stuck in a mud-like terrain, other spacecrafts close to it can assist him in getting out. Dispersion and redundancy are it's main strengths. 
+
+If the "robots" in this case scenario were to be exemplified as computers each with an operating system inside, it would require an RTOS (Real Time Operating System) to manage all its tasks as it exhibits all the characteristics that calls for an real-time solution. According to Stankovic [YS3], that system must be:
+
+\begin{itemize}
+\item Fast.
+\item Predictable.
+\item Reliable.
+\item Adaptive.
+\end{itemize}
+
+For this paper, we will delimit the use of real time system in the context of the robot's manuevering and data collection system to allow the robot to move freely without human intervention while preventing collision with obstacles including other units of the same type. It will focus solely on conceptual aspects and ignore all implementation considerations. 
+
+Additionally, there are some assumptions that are taken:
+
+\begin{enumerate}
+\item The spatial location is determined using 3-dimentional coordinates.
+\item The units have a defined radius of communication.
+\item All tasks are dynamic and aperiodic.
+\item The arrival of the tasks are sporadic in nature.
+\end{enumerate}
+
+In this paper, we will start off by discussing various concepts pertaining RTOS and how it applies to our model. We will also describe the use of Multicast protocol to improve the performance of the real time solution. The first part of this paper covers various concepts and definitions related to this subject. The second part describes the test we did to simulate such model. Finally, we will summarize our findings in the conclusions and discuss the advantages and disadvantages of such implementation.
+
+This paper makes the following contributions:
+\begin{enumerate}
+\item it presents a problem that requires real-time solution.
+\item it presents a novel solution to reduce the amount of information to handle.
+\item argues the importance of reducing information to process to meet the timing constraints.
+\item it presents a simple experiment to prove these ideas.
+\end{enumerate}
+
+
+\section{Research}
+	\subsection{RTOS}
+	A control unit responsible for the movement of any unmanned vehicle is constantly handling inputs from sensors to get information like the current speed, acceleration, the direction it is heading. It must be able to detect near term obstacles and perform various tasks like computing the shortest path, the amount of energy it needs to inject to keep the current velocity, etc. As such, it requiere a time sharing notion from a operating system's standpoint. Apart from being time sharing, the tasks have different priorities among them. There are critical tasks where the very existance of the robot is threatened should it miss its deadline and then there are tasks that can be done in its idle time. These characteristics makes it a suitable candidate for using a real-time multitasking operating system.
+
+Real time operating systems can be divided into four clases depending if they are Static or Dynamic, periodic or aperiodic. In this case, we can assume in the worst case that the task is dynamic and aperiodic meaning that the tasks are constructed in runtime and the arrival times of the tasks are not constant, in fact, they can be sporadic. An example of a sporadic task would be the obstacles encountered by the vehicle along it's path.
+
+Multicast constrained by QoS routing its by itself NP problem usually resolved by Heuristic approaches [HH1] which its optimum performance is assumed out of the scope of the paper but the approach to  intercommunication between individuals of the swarm is by multicast relying on the network infrastructure to take care of the the communication paths leaving to the individuals the task of just establishing the connections although Jin Lul et all.[HH2] propose ad hoc networks accross the individuals of the swarm having them as retrasmission stations and having needs for processing of information in real time.
+
+
+The focus of this work is on using multicast as a source outside of the swarm like a control tower works for a airport or the cellular towers work for internet access to information like real time traffic reports[HH3]
+
+
+	\subsection{Collision Avoidance}
+   Collision avoidance is a reactive action based on information sensed from the environment without which a collision would be determined to happen.
+	\subsection{Data Collection}
+	\subsection{Manuevering}
+   Maneuvering should be understand as a proactive action planned based on information received by other individuals or by simply knowing a priori that a certain maneuver has to be done at a certain point in the route like taking an exit in a highway for a vehicle.
+   Individuals could be in various states depending on their relationship with a swarm, SingleSearch, SwarmSearch and Declaration according to Tang Ying [HH4] as is likely that individuals would like to join a swarm if they are alone, so a comprehensive research on the search of swarms by an individual could be found there.
+   Other assumption is that individuals have particle properties, meaning they could have infinite acceleration, no inertia nor speed limits[HH4], although in the experiment the speed was assumed to have discreet values, in particular a single positive speed and 0 or static.
+   There could be distinct types of maneuvering, for example thinking in the context of vehicles in a highway they could have a particular destination, they might want to be part of the swarm or a gorup of vehicles for optimizing energy consumption as they packet could be more fuel efficient, in such scenario vehicles join and leave the pack as their paths collide or diverge with the swarm, there is critical information that is needed to be shared for other individuals to take actions, like yield when a new individual is incorporating to the pack and same when it is leaving so that those transicions are smooth and doesnt require a quick and dangerous action as long as the affected individuals which are close to the one differing with the swarm movement are notified of the maneuver ahead of time so that they could take smooth action proactively
+
+\section{Experiment}
+	\subsection{Experiment Introduction}
+		\subsubsection{What problem did we set out to resolve?}
+		\subsubsection{What precisely was your contribution?}
+		\subsubsection{Why should the reader care?}
+		\subsubsection{What Larger question does this address?}
+
+		\subsection{Experiment Body}
+		\subsubsection{What knowledge have you contributed that the reader can use elsewhere?}
+		\subsubsection{What previous work do you build on?}
+		\subsubsection{What is your new result?}
+
+		\subsection{Experiment Conclusions}
+		\subsubsection{Why should the reader believe your result?}
+
+
+\section{Conclusions}
+
+From the research collected in section I and the practical experiment demostrated in section II we can draw up the following conclusions:
+
+
+\begin{enumerate}
+\item The Mcast protocol can be used to reduce the amount of information being conveyed by the robots. Data collection rates are minimized by the subscription to an Mcast groups to obtain information of interest.
+
+\item A real-time solution is needed to tackle the many critical aspects of the design. One of such aspects is the collision avoidance mechanism. Even if this is not the only activity a robot of this class can perform, the need to perform this task is, by itself, reason enough to use a real-time solution.
+
+\item The nature of the arriving tasks are sporadic and unpredictable. The arrival of tasks depends of a number variables including
+
+\begin{itemize}
+\item The distance and trayectory it is heading.
+\item The speed with which it is moving.
+\item The number of robots in it's vicinity.
+\item The number and size of the obstacles.
+\end{itemize}
+
+\item The more channels of communication a robot ha access to, the more information it has to take better decisions but at the same time, the more information it has to process, risking missing the deadline for some tasks.
+
+\item There is potencial demand in the future for such systems. As robot swarm technologies continues to evolve, the availability of these systems will increase and we will see more and more applications being made for it.
+
+\item There is huge area for improvement in swarm robotics real-time paradigms. If we compare it to the personal computer industry, this is at it's infant stage.
+
+\item Aspects of classic RTOS concepts and scheduling mechanisms can be applied. Future projects may include implementing a hybrid RM (Rate Monotonic) and a EDF (Earliest Deadline First) scheduler inside the kernel and test under what circumstances one is prefered over the other.
+
+\end{enumerate}
+
+While the swarm robotics industry has yet to take off, it poses many challenges in making these systems robust and reliable. A relatively simple and practical experiment using simulated models can prove this point.
+
+For the RTOS community, this presents many rooms for improvements on the current scheduling paradigms and opens a door for new and exciting problems to solve.
 
 %Acknowledgements
-\section*{Acknowledgment}
+\section{Acknowledgment}
 
 %Reference
 \ifCLASSOPTIONcaptionsoff
@@ -39,22 +163,34 @@
 Encyclopedia on-line.
 Available from \textit{http://en.wikipedia.org/wiki/Swarm\_robotics}. Internet. Retrieved 3 March 2013.
 
-\bibitem{How Google's Self-Driving Car Works:IEEE Spectrum}
-\emph{How Google's Self-Driving Car Works - IEEE Spectrum} \textit{http://spectrum.ieee.org/automaton/robotics/artificial-intelligence/how-google-self-driving-car-works}.
-Spectrum.ieee.org. Retrieved March 3, 2013. 
+%HH1
+@INPROCEEDINGS{4725951,
+author={Xing Jin and Lin Bai and Yuefeng Ji and Yongmei Sun},
+booktitle={Semantics, Knowledge and Grid, 2008. SKG '08. Fourth International Conference on}, title={Probability Convergence based Particle Swarm Optimization for Multiple Constrained QoS Multicast Routing},
+year={2008},
+pages={412-415},
+keywords={multicast communication;particle swarm optimisation;probability;quality of service;telecommunication network routing;global astringency;multiple constrained QoS multicast routing;particle sorting rule;particle swarm optimization;probability convergence;Bandwidth;Convergence;Cost function;Delay;Heuristic algorithms;Internet;Jitter;Multicast algorithms;Particle swarm optimization;Routing;Multicast routing;Particle swarm optimization (PSO);QoS},
+doi={10.1109/SKG.2008.96},}
 
-\bibitem{Swarm Behaviour:Wikipedia}
+%[HH2]
+@INPROCEEDINGS{6182294,
+author={Jin Lu and Dongfeng Zhao and Zhenzhou An and Wenxue Ran},
+booktitle={Computer Science and Network Technology (ICCSNT), 2011 International Conference on}, title={Family particle swarm optimization for QoS multicast routing in Ad hoc},
+year={2011},
+volume={3},
+pages={1699-1702},
+keywords={ad hoc networks;multicast communication;particle swarm optimisation;protocols;quality of service;telecommunication network routing;telecommunication network topology;MAODV multicast routing discovery algorithm;QoS;ad hoc network topology;multicast routing tree;particle swarm optimization algorithm;Economics;Encoding;Ad hoc;FPSO;MAODV;QoS},
+doi={10.1109/ICCSNT.2011.6182294},}
+%[HH3] this was refering to google maps or waze
 
-\emph{Swarm Behaviour} 27 Feb 2013, 01:47 UTC. In Wikipedia: The Free Encyclopedia. Wikimedia Foundation Inc.
-Encyclopedia on-line.
-Available from \textit{http://http://en.wikipedia.org/wiki/Swarm\_behaviour}. Internet. Retrieved 3 March 2013.
-
-\bibitem{The Kilobot Project:Harvard}
-
-\emph{Kilobot: A Low Cost Scalable Robot System for Collective Behaviors} Michael~Rubenstein, Christian~Ahler, Radhika~Nagpal
-Available from \textit{http://www.eecs.harvard.edu/ssr/projects/progSA/kilobot.html}. Internet. Retrieved 3 March 2013.
-
-
+%[hh4]
+@INPROCEEDINGS{5512342,
+author={Tan Ying and Xue Songdong and Zeng Jianchao and Pan Jengshyang and Pan Tienszu},
+booktitle={Information and Automation (ICIA), 2010 IEEE International Conference on}, title={Effects of algorithmic parameters on swarm robotic search},
+year={2010},
+pages={87-92},
+keywords={finite state machines;multi-robot systems;particle swarm optimisation;target tracking;algorithmic parameters;coordinated controlling tools;declaration states;distributed swarm search;particle swarm optimization algorithm;singlesearch;swarm robotic search;swarmsearch;three-state finite state machine mechanism;Cognitive robotics;Communication system control;Intelligent robots;Mobile robots;Motion control;Orbital robotics;Particle swarm optimization;Robot control;Robot kinematics;Robot sensing systems;algorithmic parameter;particle swarm optimization;swarm robotics;target search},
+doi={10.1109/ICINFA.2010.5512342},}
 \end{thebibliography}
 \end{document}
 
