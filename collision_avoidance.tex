@@ -23,7 +23,7 @@ The ability to convey critical information promptly and efficiently between robo
 swarms is critical in collision avoidance scenarios. Different approaches to data collection
 are important considerations that must be taken in Real Time Systems where different “units” must
 effectively coordinate spatial movement to prevent collisions. Through the use of the computer
-networking concepts usch as the multicast protocol, our team has devised a new method for
+networking concepts such as the multicast protocol, our team has devised a new method for
 data collection in order to meet the timing constraints of a dynamic system such as this. The multicast
 concept allows for information management and establishment of policies related to a set of
 subscribers to a particular multicast group, which receives messages from a spatial element who
@@ -40,13 +40,22 @@ to a specific area of this environment.
 \begin{IEEEkeywords}
 MCAST, collision avoidance, RTOS, data collection, manuevering.
 \end{IEEEkeywords}
+\section{Definitions}
+\begin{itemize}
+\item QoS - Quality of Service
+\item Multicast - A layer 3 protocol part of the TCP/IP stack used to send information to multiple points with just one data transmission
+\item MCAST - Multicast
+\item DMA - Direct Memory Access
+\item EDF - Earliest Deadline Fist, a scheduling algorithm that gives the priority to the task whose deadline is the closest.
+\item UAV - Unmanned aerial vehicle
+\item RTOS - Real Time Operating System
+\end{itemize}
 
 \section{Introduction}
 \IEEEPARstart{A}{d}vances in technology have allowed automatons to gradually replace humans in many tasks involving control. Automated spacecrafts and UAVs (Unmanned Aerial Vehicle) are being heavily deployed in todays military operations and the scientific
 community uses unmanned spacecrafts in space explorations. Although these automatons are usually expensive and sophisticated, more economic solutions are now being used in civilian applications \cite{YS1}.
 
-Well established engineering technologies have been made for these mobile UAVs to move around as a single unit and most of the time you will see a military drone fly alone to strike its target and then escape without being traced.
-Or a single spacecraft wandering over the surface of Mars and other planets. And rarely if not never will you see more than one Google vehicle cruising through the streets and roads to map every block of the city. Will the era of large fleet of planes like those of World War I and II one day return? Back in those times, large formations of planes consisting of many light fighters would often accompany a few large bomber in its bombing mission. Should a hostile plane come into the area to take the bomber down, the fighters will break formation, attack the intruder and return to guard the bomber. Such behaviour can be described as a swarm behaviour as it is similar to the movement of a swarm of bees or a flock of birds. Popular culture \cite{YS2} in television and science fiction forsee the return of these swarm-like formations, often depicted in the form warplanes and spacecrafts using it's advantage in numbers to spam and overwhelm the opponent. Returning to the present real world, imagine a large fleet of unmanned spacecraft moving in a formations across Mars; if one or few vehicles stumbles upon a large obstacle such as a lake or a crater, it can quickly inform the other spacecrafts behind him to detour and find another route. And if one of the spacecrafts breaks down or gets stuck in a mud-like terrain, other spacecrafts close to it can assist him in getting out. Currently, there are already similar projects in the way. Started in 2010, the MIT developed a fleet of low-cost autonomous oil absorbing robots to help out during oil spills \cite{YS3.5}\cite{YS3.6}. Dispersion and quantity are it's main strengths. 
+Well established engineering technologies have been made for these mobile UAVs to move around as a single unit and most of the time you will see a military drone fly alone to strike its target and then escape without being traced. Or a single spacecraft wandering over the surface of Mars and other planets. And rarely if not never will you see more than one Google vehicle cruising through the streets and roads to map every block of the city. Will the era of large fleet of planes like those of World War I and II one day return? Back in those times, large formations of planes consisting of many light fighters would often accompany a few large bomber in its bombing mission. Should a hostile plane come into the area to take the bomber down, the fighters will break formation, attack the intruder and return to guard the bomber. Such behaviour can be described as a swarm behaviour as it is similar to the movement of a swarm of bees or a flock of birds. Popular culture \cite{YS2} in television and science fiction forsee the return of these swarm-like formations, often depicted in the form warplanes and spacecrafts using it's advantage in numbers to spam and overwhelm the opponent. Returning to the present real world, imagine a large fleet of unmanned spacecraft moving in a formations across Mars; if one or few vehicles stumbles upon a large obstacle such as a lake or a crater, it can quickly inform the other spacecrafts behind him to detour and find another route. And if one of the spacecrafts breaks down or gets stuck in a mud-like terrain, other spacecrafts close to it can assist him in getting out. Currently, there are already similar projects in the way. Started in 2010, the MIT developed a fleet of low-cost autonomous oil absorbing robots to help out during oil spills \cite{YS3.5}\cite{YS3.6}. Dispersion and quantity are it's main strengths. 
 
 If the "robots" in this case scenario were to be exemplified as computers each with an operating system inside, it would require an RTOS (Real Time Operating System) to manage all its tasks as it exhibits all the characteristics that calls for an real-time solution. Stankovic \cite{YS3} argues that these systems must be:
 
@@ -57,12 +66,12 @@ If the "robots" in this case scenario were to be exemplified as computers each w
 \item Adaptive.
 \end{itemize}
 
-For this paper, we will delimit the use of real time system in the context of the robot's manuevering and data collection system to allow the robot to move freely without human intervention while preventing collision with obstacles including other units of the same type. It will focus solely on conceptual aspects and ignore all implementation considerations. 
+For this paper, we will delimit the use of real time system in the context of the robot's maneuvering and data collection system to allow the robot to move freely without human intervention while preventing collision with obstacles including other units of the same type. It will focus solely on conceptual aspects and ignore all implementation considerations. 
 
 Additionally, there are some assumptions that are taken:
 
 \begin{enumerate}
-\item The spatial location is determined using 3-dimentional coordinates.
+\item The spatial location is determined using 3-dimensional coordinates.
 \item The units have a defined radius of communication.
 \item All tasks are dynamic and aperiodic.
 \item The arrival of the tasks are sporadic in nature.
@@ -81,12 +90,11 @@ This paper makes the following contributions:
 
 \section{Research}
 \subsection{RTOS}
-A control unit responsible for the movement of any unmanned vehicle is constantly handling inputs from sensors to get information like the current speed, acceleration, the direction it is heading. It must be able to detect near term obstacles and perform various tasks like computing the shortest path, the amount of energy it needs to inject to keep the current velocity, etc. As such, it requiere a time sharing notion from a operating system's standpoint. Apart from being time sharing, the tasks have different priorities among them. There are critical tasks where the very existance of the robot is threatened should it miss its deadline and then there are tasks that can be done in its idle time. These characteristics makes it a suitable candidate for using a real-time multitasking operating system.
+A control unit responsible for the movement of any unmanned vehicle is constantly handling inputs from sensors to get information like the current speed, acceleration, the direction it is heading. It must be able to detect near term obstacles and perform various tasks like computing the shortest path, the amount of energy it needs to inject to keep the current velocity, etc. As such, it require a time sharing notion from a operating system's standpoint. Apart from being time sharing, the tasks have different priorities among them. There are critical tasks where the very existence of the robot is threatened should it miss its deadline and then there are tasks that can be done in its idle time. These characteristics makes it a suitable candidate for using a real-time multitasking operating system.
 
-Real time operating systems can be divided into four clases depending of their characteristics; they can be Static or Dynamic, periodic or aperiodic. In this case, we can assume in the worst case that the task is dynamic and aperiodic meaning that the tasks are constructed in runtime and the arrival times of the tasks are not constant, in fact, they can be sporadic. An example of a sporadic task would be the obstacles encountered by the vehicle along it's path.
+Real time operating systems can be divided into four classes depending of their characteristics; they can be Static or Dynamic, periodic or aperiodic. In this case, we can assume in the worst case that the task is dynamic and aperiodic meaning that the tasks are constructed in runtime and the arrival times of the tasks are not constant, in fact, they can be sporadic. An example of a sporadic task would be the obstacles encountered by the vehicle along it's path.
 
 Multicast constrained by QoS routing its by itself NP problem usually resolved by Heuristic approaches \cite{HH1} which its optimum performance is assumed out of the scope of the paper but the approach to  intercommunication between individuals of the swarm is by multicast relying on the network infrastructure to take care of the the communication paths leaving to the individuals the task of just establishing the connections although Jin Lul et all. \cite{HH2} propose ad hoc networks accross the individuals of the swarm having them as retrasmission stations and having needs for processing of information in real time.
-
 
 The focus of this work is on using multicast as a source outside of the swarm like a control tower works for a airport or the cellular towers work for internet access to information like real time traffic reports\cite{YS1}
 
@@ -98,15 +106,27 @@ Real time considerations are also relevant; robots must take decisions in real t
 Another set of elements used today in this field are development of sensor technology, communication technology , artificial intelligence; all maybe part of swarm robotics and help create greater robustness and adaptability for robot swarms.
 Thus a key and central part of collision avoidance has to do with the collision avoidance algorithm, and which elements it responds to. The algorithm must be able to prioritize actions to avoid collision.  Multi-agent swarm algorithms have been already developed for swarm systems \cite{IG10}. Ye Wang, Tanaka and Guan \cite{IG10} develop interesting association (called dynamic association) algorithms based on “light of sight” or robots not obscured by obstacles to associate different robots within themselves (this is interestingly the closest implementation similar to multicast found in our research). In general this is just an example of how different algorithms can be used to implement collision avoidance techniques. In our research and experimentation, collision avoidance was modeled only based on proximity; other techniques and capabilities are left for further research.
 
-\subsection{Data Collection}
-\subsection{Manuevering}
+\subsection{Data Collection in Real Time}
+
+While this is a topic where only one reference was found that directly relates to data collection in swarms\cite{HH5}. Applications require minimum throughput and maximum delay guarantees, that need to be accounted for in the design, also trajectory planning  and communication-aware route planning has been an area of interest to different robotics and communication communities\cite{HH5}.
+It is supposed that the data collection involves a DMA access from a network device involving little to no overhead to the processor, having to focus more on selecting when to process the data and when it is not worth to be processed.
+In relation with multicast, in the case of a individual with multiple channel subscription, the number of channels is unknown a priori, each channel or subscription is likely to represent the given amount of individuals in the vicinity of the system. The amount of data to be processed is important for the scheduler to define a window for the validity of the data received based on a more recent set of data arrived from such individual. As what would matter most is the most recent data and once a data set from the individual has arrived the previous data has little to no importance.
+Based on closeness to the individual system different multicast channels a priority could be established for each one of the multicast channels that are listened each representing the information about a individual in the swarm like position coordinates, speed, acceleration obstacles found, any planned maneuver or any other interesting information for the other individuals that would help them to take better decisions to avoid any collision.
+Given a set of multicast channels of the same level of importance is mandatory that the computation associated with those would be evenly distributed among all of them as such a simple round robin between each of the channels would be fair so that each one gets to process the data set received.
+Although was previously shown the data set received contains multiple variables all those which could arguably have a relative higher importance to the system in order to avoid collisions or perform maneuvering, meaning that the whole data set could be processed in parts according to the importance of the data set or seeing from another perspective from the functions operating over those parameters like time to collision, speed variation angle, calculate average direction of neighbors, meaning that each of the operations could be scheduled with a different degree of importance
+Then once the nature of the data processing is well understood priorities could be given to each of the different functions instead of the different multicast groups.
+A fair scheduling under these circumstances would be to have a round robin between each of the critical tasks and have data sets with a time window with expiration once a new data set arrives for the same multicast group.
+In order to speed and simplify the data processing operations should be made very compact and atomic having data invalidation only after the operation over the data set  has been completed, meaning it would be favorable to have specific data points in which to preempt the system or have a non-preemtive nature of the computation for data collection
+The other part of the processing is once the data has been processed a decision has to be taken in order to allow the system to correct or make any adjustments as in any control loop, this should be done once a data set has been invalidated or the whole data set has been processed then a higher priority task arises that computes the data computation from the coming data, takes the decision and afterwards the decision must be executed meaning the system trajectory should be adjusted.
+
+\subsection{Maneuvering}
 Maneuvering should be understand as a proactive action planned based on information received by other individuals or by simply knowing a priori that a certain maneuver has to be done at a certain point in the route like taking an exit in a highway for a vehicle.
 
 Individuals could be in various states depending on their relationship with a swarm, SingleSearch, SwarmSearch and Declaration according to Tang Ying \cite{HH4} as is likely that individuals would like to join a swarm if they are alone, so a comprehensive research on the search of swarms by an individual could be found there.
 
 Other assumption is that individuals have particle properties, meaning they could have infinite acceleration, no inertia nor speed limits \cite{HH4}, although in the experiment the speed was assumed to have discreet values, in particular a single positive speed and 0 or static.
 
-There could be distinct types of maneuvering, for example thinking in the context of vehicles in a highway they could have a particular destination, they might want to be part of the swarm or a gorup of vehicles for optimizing energy consumption as they packet could be more fuel efficient, in such scenario vehicles join and leave the pack as their paths collide or diverge with the swarm, there is critical information that is needed to be shared for other individuals to take actions, like yield when a new individual is incorporating to the pack and same when it is leaving so that those transicions are smooth and doesnt require a quick and dangerous action as long as the affected individuals which are close to the one differing with the swarm movement are notified of the maneuver ahead of time so that they could take smooth action proactively
+There could be distinct types of maneuvering, for example thinking in the context of vehicles in a highway they could have a particular destination, they might want to be part of the swarm or a group of vehicles for optimizing energy consumption as they packet could be more fuel efficient, in such scenario vehicles join and leave the pack as their paths collide or diverge with the swarm, there is critical information that is needed to be shared for other individuals to take actions, like yield when a new individual is incorporating to the pack and same when it is leaving so that those transitions are smooth and does not require a quick and dangerous action as long as the affected individuals which are close to the one differing with the swarm movement are notified of the maneuver ahead of time so that they could take smooth action proactively.
 
 \subsection{Cross Applications}
 An underlying realization product of the problem we set out to answer is that cross-applications of other fields can have interesting and unknown results. In our case multicast has no similar applications in the industry or research areas. First, there are possible applications of our use of multicast in other real time systems related to swarms, and for different types of swarms. Second there are many possible applications of networking concepts in many other areas, and it is possible that they may be applied in other types of swarms as well. 
@@ -268,6 +288,11 @@ Computer Science and Network Technology (ICCSNT), 2011 International Conference 
 Tan Ying and Xue Songdong and Zeng Jianchao and Pan Jengshyang and Pan Tienszu,
 Information and Automation (ICIA), 2010 IEEE International Conference on, \emph{Effects of algorithmic parameters on swarm robotic search},
 2010, pages 87-92,
+
+\bibitem{HH5} 
+Sujit, P. B. and Lucani, D.E. and Sousa, J.B.,
+journal=Selected Areas in Communications, IEEE Journal on, \emph{Bridging Cooperative Sensing and Route Planning of Autonomous Vehicles},
+2012, pages 912-922,
 
 \bibitem{IG1}
 He Deng-xu; Zhu Hua-Zheng; Liu Gui-qing, \emph{"Glowworm swarm optimization algorithm for solving multi-constrained QoS multicast routing problem,"} Computational Intelligence and Security (CIS), 2011 Seventh International Conference on , vol., no., pp.66,70, 3-4 Dec. 2011
