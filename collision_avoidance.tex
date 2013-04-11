@@ -36,6 +36,10 @@ environment which is not homogeneous and where subscribers will obtain only rele
 to a specific area of this environment.
 \end{abstract}
 
+\begin{IEEEkeywords}
+MCAST, collision avoidance, RTOS, data collection, manuevering.
+\end{IEEEkeywords}
+
 \section{Introduction}
 \IEEEPARstart{A}{d}vances in technology have allowed automatons to gradually replace humans in many tasks involving control. Automated spacecrafts and UAVs (Unmanned Aerial Vehicle) are being heavily deployed in todays military operations and the scientific
 community uses unmanned spacecrafts in space explorations. Although these automatons are usually expensive and sophisticated, more economic solutions are now being used in civilian applications [YS1].
@@ -101,6 +105,37 @@ Real time operating systems can be divided into four clases depending if they ar
 
 
 \section{Conclusions}
+
+From the research collected in section I and the practical experiment demostrated in section II we can draw up the following conclusions:
+
+
+\begin{enumerate}
+\item The Mcast protocol can be used to reduce the amount of information being conveyed by the robots. Data collection rates are minimized by the subscription to an Mcast groups to obtain information of interest.
+
+\item A real-time solution is needed to tackle the many critical aspects of the design. One of such aspects is the collision avoidance mechanism. Even if this is not the only activity a robot of this class can perform, the need to perform this task is, by itself, reason enough to use a real-time solution.
+
+\item The nature of the arriving tasks are sporadic and unpredictable. The arrival of tasks depends of a number variables including
+
+\begin{itemize}
+\item The distance and trayectory it is heading.
+\item The speed with which it is moving.
+\item The number of robots in it's vicinity.
+\item The number and size of the obstacles.
+\end{itemize}
+
+\item The more channels of communication a robot ha access to, the more information it has to take better decisions but at the same time, the more information it has to process, risking missing the deadline for some tasks.
+
+\item There is potencial demand in the future for such systems. As robot swarm technologies continues to evolve, the availability of these systems will increase and we will see more and more applications being made for it.
+
+\item There is huge area for improvement in swarm robotics real-time paradigms. If we compare it to the personal computer industry, this is at it's infant stage.
+
+\item Aspects of classic RTOS concepts and scheduling mechanisms can be applied. Future projects may include implementing a hybrid RM (Rate Monotonic) and a EDF (Earliest Deadline First) scheduler inside the kernel and test under what circumstances one is prefered over the other.
+
+\end{enumerate}
+
+While the swarm robotics industry has yet to take off, it poses many challenges in making these systems robust and reliable. A relatively simple and practical experiment using simulated models can prove this point.
+
+For the RTOS community, this presents many rooms for improvements on the current scheduling paradigms and opens a door for new and exciting problems to solve.
 
 %Acknowledgements
 \section{Acknowledgment}
