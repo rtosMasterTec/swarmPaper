@@ -43,12 +43,12 @@ MCAST, collision avoidance, RTOS, data collection, manuevering.
 
 \section{Introduction}
 \IEEEPARstart{A}{d}vances in technology have allowed automatons to gradually replace humans in many tasks involving control. Automated spacecrafts and UAVs (Unmanned Aerial Vehicle) are being heavily deployed in todays military operations and the scientific
-community uses unmanned spacecrafts in space explorations. Although these automatons are usually expensive and sophisticated, more economic solutions are now being used in civilian applications [YS1].
+community uses unmanned spacecrafts in space explorations. Although these automatons are usually expensive and sophisticated, more economic solutions are now being used in civilian applications \cite{YS1}.
 
 Well established engineering technologies have been made for these mobile UAVs to move around as a single unit and most of the time you will see a military drone fly alone to strike its target and then escape without being traced.
-Or a single spacecraft wandering over the surface of Mars and other planets. And rarely if not never will you see more than one Google vehicle cruising through the streets and roads to map every block of the city. Will the era of large fleet of planes like those of World War I and II one day return? Back in those times, large formations of planes consisting of many light fighters would often accompany a few large bomber in its bombing mission. Should a hostile plane come into the area to take the bomber down, the fighters will break formation, attack the intruder and return to guard the bomber. Such behaviour can be described as a swarm behaviour as it is similar to the movement of a swarm of bees or a flock of birds. Popular culture[YS2] in television and science fiction forsee the return of these swarm-like formations, often depicted in the form warplanes and spacecrafts using it's advantage in numbers to spam and overwhelm the opponent. Returning to the present real world, imagine a large fleet of unmanned spacecraft moving in a formations across Mars; if one or few vehicles stumbles upon a large obstacle such as a lake or a crater, it can quickly inform the other spacecrafts behind him to detour and find another route. And if one of the spacecrafts breaks down or gets stuck in a mud-like terrain, other spacecrafts close to it can assist him in getting out. Dispersion and redundancy are it's main strengths. 
+Or a single spacecraft wandering over the surface of Mars and other planets. And rarely if not never will you see more than one Google vehicle cruising through the streets and roads to map every block of the city. Will the era of large fleet of planes like those of World War I and II one day return? Back in those times, large formations of planes consisting of many light fighters would often accompany a few large bomber in its bombing mission. Should a hostile plane come into the area to take the bomber down, the fighters will break formation, attack the intruder and return to guard the bomber. Such behaviour can be described as a swarm behaviour as it is similar to the movement of a swarm of bees or a flock of birds. Popular culture \cite{YS2} in television and science fiction forsee the return of these swarm-like formations, often depicted in the form warplanes and spacecrafts using it's advantage in numbers to spam and overwhelm the opponent. Returning to the present real world, imagine a large fleet of unmanned spacecraft moving in a formations across Mars; if one or few vehicles stumbles upon a large obstacle such as a lake or a crater, it can quickly inform the other spacecrafts behind him to detour and find another route. And if one of the spacecrafts breaks down or gets stuck in a mud-like terrain, other spacecrafts close to it can assist him in getting out. Currently, there are already similar projects in the way. Started in 2010, the MIT developed a fleet of low-cost autonomous oil absorbing robots to help out during oil spills \cite{YS3.5}\cite{YS3.6}. Dispersion and quantity are it's main strengths. 
 
-If the "robots" in this case scenario were to be exemplified as computers each with an operating system inside, it would require an RTOS (Real Time Operating System) to manage all its tasks as it exhibits all the characteristics that calls for an real-time solution. According to Stankovic [YS3], that system must be:
+If the "robots" in this case scenario were to be exemplified as computers each with an operating system inside, it would require an RTOS (Real Time Operating System) to manage all its tasks as it exhibits all the characteristics that calls for an real-time solution. Stankovic \cite{YS3} argues that these systems must be:
 
 \begin{itemize}
 \item Fast.
@@ -85,53 +85,55 @@ A control unit responsible for the movement of any unmanned vehicle is constantl
 
 Real time operating systems can be divided into four clases depending of their characteristics; they can be Static or Dynamic, periodic or aperiodic. In this case, we can assume in the worst case that the task is dynamic and aperiodic meaning that the tasks are constructed in runtime and the arrival times of the tasks are not constant, in fact, they can be sporadic. An example of a sporadic task would be the obstacles encountered by the vehicle along it's path.
 
-Multicast constrained by QoS routing its by itself NP problem usually resolved by Heuristic approaches [HH1] which its optimum performance is assumed out of the scope of the paper but the approach to  intercommunication between individuals of the swarm is by multicast relying on the network infrastructure to take care of the the communication paths leaving to the individuals the task of just establishing the connections although Jin Lul et all.[HH2] propose ad hoc networks accross the individuals of the swarm having them as retrasmission stations and having needs for processing of information in real time.
+Multicast constrained by QoS routing its by itself NP problem usually resolved by Heuristic approaches \cite{HH1} which its optimum performance is assumed out of the scope of the paper but the approach to  intercommunication between individuals of the swarm is by multicast relying on the network infrastructure to take care of the the communication paths leaving to the individuals the task of just establishing the connections although Jin Lul et all. \cite{HH2} propose ad hoc networks accross the individuals of the swarm having them as retrasmission stations and having needs for processing of information in real time.
 
 
-The focus of this work is on using multicast as a source outside of the swarm like a control tower works for a airport or the cellular towers work for internet access to information like real time traffic reports[HH3]
+The focus of this work is on using multicast as a source outside of the swarm like a control tower works for a airport or the cellular towers work for internet access to information like real time traffic reports\cite{YS1}
 
 \subsection{Collision Avoidance}
-Collision avoidance is a reactive action based on information sensed from the environment without which a collision would be determined to happen.
+Collision avoidance is a reactive action based on information sensed from the environment without which a collision would be determined to happen. It is an inevitable problem for swarm robots; they must avoid collisions with moving obstacles, other robots within the swarm and static obstacles. Control policies and strategies \cite{IG6} are needed to avoid collisions. 
+Elements of collision avoidance
+There are many elements that need to be taken into consideration for a robot to adapt into its environment and act accordingly to the dynamic stimulus it must receive as it interacts with the environment. The robot must be able to adjust its behavior due to many types of variations. For collision avoidance a central problem are velocity vectors, acceleration \cite{IG9} robot orientation \cite{IG7} and mass. Synchronization \cite{IG8} is also a relevant characteristic that can be modeled mathematically \cite{IG8} to regulate flock centering and direction and collision avoidance.
+Real time considerations are also relevant; robots must take decisions in real time to avoid a collision. 
+Another set of elements used today in this field are development of sensor technology, communication technology , artificial intelligence; all maybe part of swarm robotics and help create greater robustness and adaptability for robot swarms.
+Thus a key and central part of collision avoidance has to do with the collision avoidance algorithm, and which elements it responds to. The algorithm must be able to prioritize actions to avoid collision.  Multi-agent swarm algorithms have been already developed for swarm systems \cite{IG10}. Ye Wang, Tanaka and Guan \cite{IG10} develop interesting association (called dynamic association) algorithms based on “light of sight” or robots not obscured by obstacles to associate different robots within themselves (this is interestingly the closest implementation similar to multicast found in our research). In general this is just an example of how different algorithms can be used to implement collision avoidance techniques. In our research and experimentation, collision avoidance was modeled only based on proximity; other techniques and capabilities are left for further research.
+
 \subsection{Data Collection}
 \subsection{Manuevering}
 Maneuvering should be understand as a proactive action planned based on information received by other individuals or by simply knowing a priori that a certain maneuver has to be done at a certain point in the route like taking an exit in a highway for a vehicle.
 
-Individuals could be in various states depending on their relationship with a swarm, SingleSearch, SwarmSearch and Declaration according to Tang Ying [HH4] as is likely that individuals would like to join a swarm if they are alone, so a comprehensive research on the search of swarms by an individual could be found there.
+Individuals could be in various states depending on their relationship with a swarm, SingleSearch, SwarmSearch and Declaration according to Tang Ying \cite{HH4} as is likely that individuals would like to join a swarm if they are alone, so a comprehensive research on the search of swarms by an individual could be found there.
 
-Other assumption is that individuals have particle properties, meaning they could have infinite acceleration, no inertia nor speed limits[HH4], although in the experiment the speed was assumed to have discreet values, in particular a single positive speed and 0 or static.
+Other assumption is that individuals have particle properties, meaning they could have infinite acceleration, no inertia nor speed limits \cite{HH4}, although in the experiment the speed was assumed to have discreet values, in particular a single positive speed and 0 or static.
 
 There could be distinct types of maneuvering, for example thinking in the context of vehicles in a highway they could have a particular destination, they might want to be part of the swarm or a gorup of vehicles for optimizing energy consumption as they packet could be more fuel efficient, in such scenario vehicles join and leave the pack as their paths collide or diverge with the swarm, there is critical information that is needed to be shared for other individuals to take actions, like yield when a new individual is incorporating to the pack and same when it is leaving so that those transicions are smooth and doesnt require a quick and dangerous action as long as the affected individuals which are close to the one differing with the swarm movement are notified of the maneuver ahead of time so that they could take smooth action proactively
 
-\subsection{What problem did we set out to resolve?}
-\subsection{What precisely was your contribution?}
-\subsection{Why should the reader care?}
-\subsection{What Larger question does this address?}
+\subsection{Cross Applications}
 An underlying realization product of the problem we set out to answer is that cross-applications of other fields can have interesting and unknown results. In our case multicast has no similar applications in the industry or research areas. First, there are possible applications of our use of multicast in other real time systems related to swarms, and for different types of swarms. Second there are many possible applications of networking concepts in many other areas, and it is possible that they may be applied in other types of swarms as well. 
 This let us to think that our research and experimentation definitely support further research in this area, and a basis for an expansion of the current research to yield more conclusive results. 
 
-\subsection{What knowledge have you contributed that the reader can use elsewhere?}
 Our research in the available publications and papers indicate that that few if any (none were found) groups or individuals have used a computer networking protocol such as multicast applied to a robot swarm problem to specifically manage behavior (and ultimately communication) between swarm robots.
-Most of the articles and papers found related to robot swarms contain information about using robots swarms, particles or swarm intelligence to improve and optimize the multicast protocol [1IG, 2IG, 3IG], but not for the inverse relationship, were a networking routing protocol is used to improve robot swarms interactions. 
+Most of the articles and papers found related to robot swarms contain information about using robots swarms, particles or swarm intelligence to improve and optimize the multicast protocol \cite{IG1}\cite{IG2}\cite{IG3}, but not for the inverse relationship, were a networking routing protocol is used to improve robot swarms interactions. 
 Not only is this promising because it is a novel idea that can be applied to other fields, but because there are still many networking protocols that can be used for exploration and improvements in robot swarm behavior (or other behaviors and problems). 
-This let us to think of the substantial value of cross-applications of systems, methods and practices used in a field, applied to another field. A clear example of such a cross-application is the biomimetics field, where biological systems are used as models for design of machines or engineering materials and principles. Other clear examples include neural networks, ant algorithms, genetic algorithms; all which are used in the computer science field successfully (and ironically can be used to improve the multicast protocol itself [1IG, 2IG, 3IG]). 
+This let us to think of the substantial value of cross-applications of systems, methods and practices used in a field, applied to another field. A clear example of such a cross-application is the biomimetics field, where biological systems are used as models for design of machines or engineering materials and principles. Other clear examples include neural networks, ant algorithms, genetic algorithms; all which are used in the computer science field successfully (and ironically can be used to improve the multicast protocol itself \cite{IG1}\cite{IG2}\cite{IG3}). 
 Computer networking protocols and routing algorithms can be cross-applied to other fields. Many of these algorithms and methods have been modeled to efficiently manage packet data across networks, of which multicast is only one of them.  There are many other protocols that can be cross-applied in an interdisciplinary fashion. The computer networking area is a mature field that has evolved and is used today as the basis of many Internet networks. It is possible that many of the elements of such a system such as meshing, spanning tree, policy based forwarding, tunneling, congestion avoidance (to name a few) or other capabilities of networking be applied to robots swarms or any other fields that may warrant an intelligent reuse of these concepts.  Our study and our application of the use of multicast can be a starting point to a) further use multicast with more parameters that define the application of multicast. Our experimental application of multicast only takes into consideration the value of proximity; based on proximity robots belong to a multicast group. Other parameters can be used, for example types of robots, types of environments, or any other qualities that will serve as a criterion from which to define subscriptions to a multicast group. The second interesting application derived from our research is b) further applications of networking concepts such as the already mentioned (spanning tree, meshing, etc.) to similar problems. These concepts of a networking system need only be explored and analyzed in a similar way biological systems are used and applied by biomimetics into other fields. 
 Furthermore there are benefits of having such concepts that can be described as digital concepts. These are conceptually already modeled in the computing field, and as such are easier to implement as programming models. 
 Another strength is that networking tools and systems to analyze networking data and behavior are already present and used to simulate networking behavior. These are known problems with a longstanding in the computer science and telecommunications field, such that there may be a use of tools [4IG] and suites that can be adapted or used to model the possible behavioral cross applications of these concepts.
 
 
-\subsection{What is your new result?}
+\subsection{Benefits of application of multicast}
 Through the use of a multicast algorithm applied to a robot swarms, the conclusion arrived is that multicast provides a possible reduction on robot swarm transmission of data and information within members of the swarm. Since our experiment and simulation is at this point a testbench with a very small and limited number of simulated robots, the results are not strongly conclusive, but work as an introductory work in the field.  
 Regarding collision avoidance, an improvement in data reduction yields a direct improvement in collision avoidance for two distinct reasons. 
 \subsubsection{Collision reaction time reduction}
 One, since multicast reduces the amount of data to be processed (significantly) by a single entity of the swarm, it has the potential to reduce the amount of reaction time to reduce a potential collision. This is an important contribution in real time systems, where any possible improvement regarding reaction time must be efficiently incorporated into new systems.
 \subsubsection{Collision Prevention}
-Second, the ability given by the behavior of a robot swarms under multicast groups, where robots are subscribed to other robots according to relevant data, provides an interesting way to prevent collisions. To further explain, in a networked robot swarms such as those described in [5IG], there may be obstacles that do not warrant an immediate action from the acting robot to avoid collision, but do warrant a preventive action to avoid collision or an undesired path in the robot’s way. In this way a robot may receive environment data that is relevant only in a short proximity, which will provide and improvement from receiving all the data from all the robots. It is important to note, that proximity is the only criterion used in this simulation to subscribe to multicast groups. In other environments, there may be different criteria that could be more useful other than proximity. For example, a land robot may not want to subscribe to the information provided by an aerial robot, even if they are in close proximity.
+Second, the ability given by the behavior of a robot swarms under multicast groups, where robots are subscribed to other robots according to relevant data, provides an interesting way to prevent collisions. To further explain, in a networked robot swarms such as those described in \cite{IG5}, there may be obstacles that do not warrant an immediate action from the acting robot to avoid collision, but do warrant a preventive action to avoid collision or an undesired path in the robot’s way. In this way a robot may receive environment data that is relevant only in a short proximity, which will provide and improvement from receiving all the data from all the robots. It is important to note, that proximity is the only criterion used in this simulation to subscribe to multicast groups. In other environments, there may be different criteria that could be more useful other than proximity. For example, a land robot may not want to subscribe to the information provided by an aerial robot, even if they are in close proximity.
 
 
 \section{Experiment}
-\subsubsection{Simulation description}
+\subsection{Simulation description}
 As previously stated a testbench was created as a starting point for further testing of multicast applications.  The testbench consisted of a simulated environment where a robot swarm had to cross a small 50x41 grid where several obstacles lay in a path of a robot swarm with the task of successfully arriving at the right side of the grid. The robots were simulated as part of a real-time environment. Each robot possessed a set of algorithms that provided information about the obstacles and ways to avoid them. The multicast protocol was used to create groups within the robots.  Robots could subscribe and unsubscribe to different multicast transmissions (transmitted by each robot), which would equate to different information received about the obstacles in their path at different point in time. The main criterion for belonging to a multicast group was proximity. If a robot was close enough to a robot in its vicinity, it would subscribe in real time to the information presented by the other robot. 
-\subsubsection{Simulation results}
+\subsection{Simulation results}
 Although the simulation proved rather simple at this stage and the initial test results are not conclusive enough, they work as a starting point for further research. A comparison was made between a) the maximum possible data a robot could process and b) the amount of data a robot could process with the multicast algorithm applied. This meant subscription only to information to robots in the close proximity that would essentially provide relevant data.  It was assumed, that in a conventional system, all robots would need to process all the data from the surrounding robots (all the robots within range), as in this case there aren’t any criteria for selecting specific transmissions. 
 The simulation was done for a single robot who worked in an environment with two sets of samples: a) first with three robots and then b) with eight robots. The proximity criterion was varied to show the effect of the proximity on different multicast groups. As the proximity units was reduced, as expected the data units processed lowered since there were less subscription the specific robot was subscribed to.
 The following results were obtained:
@@ -182,7 +184,7 @@ This same data can be since as percentages of the total data that would have bee
 %\caption{Data Units processed as percentage of total.}
 %\end{table}
 
-\subsubsection{Simulation conclusions}
+\subsection{Simulation conclusions}
 The data is not enough to be conclusive, but the testbench provides a further starting point for analysis, as more robots are included in the simulation and eventually more obstacles and a bigger grid. 
 Simulation improvements
 There are several improvements that can be explored in new simulation:
@@ -192,7 +194,7 @@ There are several improvements that can be explored in new simulation:
 \item	With a bigger grid and more robots, the probability of robot interactions can increment, such that the proximity criterion can be varied with other than minimal units
 \item	More criterion can be included in the multicast selection algorithm (the algorithm that choses which multicast groups to subscribe to) other than proximity. 
 \item	The simulation environment can have more significant variables that approach real life characteristics of a robot swarm, such as visibility, robot types, wind, etc.
-\item	Oportunity insert different robot types, to create a better swarm eco-system, to improve network behavior such as search, base and relay robots as introduce in [5IG].
+\item	Oportunity insert different robot types, to create a better swarm eco-system, to improve network behavior such as search, base and relay robots as introduce in \cite{IG5}.
 \end{itemize}
 
 \section{Conclusions}
@@ -236,38 +238,68 @@ For the RTOS community, this presents many rooms for improvements on the current
 \fi
 \begin{thebibliography}{1}
 
-\bibitem{Probability Convergence HH1}
+\bibitem{YS1}
+Sam Byford, The Verge, \emph{Google Self Driving Cars}, "http://www.theverge.com/2012/12/23/3797260/self-driving-cars-automated-vehicles", 12-23-2012.
+
+\bibitem{YS2}
+Alanna Durkin, \emph{Robot Swarm}, "http://adurkin.weebly.com/1/post/2013/04/robot-swarm.html", Apr 8 2012.
+
+\bibitem{YS3.5}
+Carlo Ratti, Assaf Biderman, Luigi Farrauto, \emph{Seaswarm}, "http://senseable.mit.edu/seaswarm/", 2013.
+
+\bibitem{YS3.6}
+Joseph L. Flatley, \emph{MIT Seaswarm autonomous robots coming soon to an oil spill near you},
+"http://www.engadget.com/2010/08/27/mit-seaswarm-autonomous-robots-coming-soon-to-an-oil-spill-near/", Aug 27 2010.
+
+\bibitem{YS3}
+John A. Stankovic, Department of Computer Science, University of Massachusetts,\emph{Real-Time Computing}, Amherst MA, April 16, 1992.
+
+\bibitem{HH1}
 Xing Jin and Lin Bai and Yuefeng Ji and Yongmei Sun,
 Semantics, Knowledge and Grid, 2008. SKG '08. Fourth International Conference on, \emph{Probability Convergence based Particle Swarm Optimization for Multiple Constrained QoS Multicast Routing},
 2008, pages 412-415,
 
-\bibitem{Family particle HH2 }
+\bibitem{HH2}
 Jin Lu and Dongfeng Zhao and Zhenzhou An and Wenxue Ran,
 Computer Science and Network Technology (ICCSNT), 2011 International Conference on, \emph{Family particle swarm optimization for QoS multicast routing in Ad hoc},
 2011,volume 3, pages 1699-1702,
 
-\bibitem{ Effects of algorithm parameters HH4}
+\bibitem{HH4}
 Tan Ying and Xue Songdong and Zeng Jianchao and Pan Jengshyang and Pan Tienszu,
-booktitle={Information and Automation (ICIA), 2010 IEEE International Conference on}, \emph{Effects of algorithmic parameters on swarm robotic search},
+Information and Automation (ICIA), 2010 IEEE International Conference on, \emph{Effects of algorithmic parameters on swarm robotic search},
 2010, pages 87-92,
 
-\bibitem{Glowworm 1IG}
+\bibitem{IG1}
 He Deng-xu; Zhu Hua-Zheng; Liu Gui-qing, \emph{"Glowworm swarm optimization algorithm for solving multi-constrained QoS multicast routing problem,"} Computational Intelligence and Security (CIS), 2011 Seventh International Conference on , vol., no., pp.66,70, 3-4 Dec. 2011
 doi: 10.1109/CIS.2011.23
 
-\bibitem{Swarm Optimization 2IG}
+\bibitem{IG2}
 Jin Lu; Dongfeng Zhao; Zhenzhou An; Wenxue Ran, \emph{"Family particle swarm optimization for QoS multicast routing in Ad hoc,"} Computer Science and Network Technology (ICCSNT), 2011 International Conference on , vol.3, no., pp.1699,1702, 24-26 Dec. 2011
 
-\bibitem{QoS 3IG}
+\bibitem{IG3}
 Chun-bo Liu; Hui-jin Wang; Zhi-ping Luo; Xiu-qin Yu; Li-hua Liu, \emph{"QoS Multicast Routing Problem Based on Artificial Fish-Swarm Algorithm,"} Education Technology and Computer Science, 2009. ETCS '09. First International Workshop on , vol.2, no., pp.814,817, 7-8 March 2009
 
-\bibitem{Computer Network 4IG}
+\bibitem{IG4}
 Al-Holou, N.; Booth, K.K.; Yaprak, E., \emph{"Using computer network simulation tools as supplements to computer network curriculum,"} Frontiers in Education Conference, 2000. FIE 2000. 30th Annual , vol.2, no., pp.S2C/13,S2C/16 vol.2, 2000
 doi: 10.1109/FIE.2000.896644
 
-\bibitem{Behaviour Control 5IG}
+\bibitem{IG5}
 Jong Sun Kim; Myung Hwan Tak; Young Hoon Joo; Young Jo Cho; Chang Eun Lee; Sang Hoon Ji, \emph{"Behavior control for the swarm robots with network connectivity,"} Ubiquitous Robots and Ambient Intelligence (URAI), 2012 9th International Conference on , vol., no., pp.337,340, 26-28 Nov. 2012
 doi: 10.1109/URAI.2012.6463009
 
+\bibitem{IG6}
+Mao Yang; Zongchun Liu, \emph{"Control of collision avoidance for swarm robots foraging in complex environment,"} Intelligent Control and Information Processing (ICICIP), 2012 Third International Conference on , vol., no., pp.525,530, 15-17 July 20127
+
+\bibitem{IG7}
+V. Gazi and K. M. Passino, \emph{“A class of repulsion/attraction forces for stable swarm aggregations,”} Int. J. Control, vol. 77, no. 18, pp.  1567–1579, 2004
+
+\bibitem{IG8}
+Zongchun Liu; Yantao Tian; Mao Yang, \emph{"Behavior analysis in free space and obstacle environment of swarm robot systems based on vicsek model,"} Advanced Computer Control (ICACC), 2010 2nd International Conference on , vol.1, no., pp.224,229, 27-29 March 2010
+
+\bibitem{IG9}
+Sharma, R.; Ghose, D., \emph{"Swarm Intelligence based Collision Avoidance Between Realistically Modelled UAV Clusters,"} American Control Conference, 2007. ACC '07 , vol., no., pp.3892,3897, 9-13 July 2007
+
+\bibitem{IG10}
+Guohua Ye; Wang, H.O.; Tanaka, K.; Zhi-Hong Guan, \emph{"Managing group behaviors in swarm systems by associations,"} American Control Conference, 2006 , vol., no., pp.8 pp.,, 14-16 June 2006
 \end{thebibliography}
 \end{document}
