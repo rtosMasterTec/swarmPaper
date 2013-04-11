@@ -92,7 +92,7 @@ This paper makes the following contributions:
 \subsection{RTOS}
 A control unit responsible for the movement of any unmanned vehicle is constantly handling inputs from sensors to get information like the current speed, acceleration, the direction it is heading. It must be able to detect near term obstacles and perform various tasks like computing the shortest path, the amount of energy it needs to inject to keep the current velocity, etc. As such, it require a time sharing notion from a operating system's standpoint. Apart from being time sharing, the tasks have different priorities among them. There are critical tasks where the very existence of the robot is threatened should it miss its deadline and then there are tasks that can be done in its idle time. These characteristics makes it a suitable candidate for using a real-time multitasking operating system.
 
-Real time operating systems can be divided into four classes depending of their characteristics; they can be Static or Dynamic, periodic or aperiodic. In this case, we can assume in the worst case that the task is dynamic and aperiodic meaning that the tasks are constructed in runtime and the arrival times of the tasks are not constant, in fact, they can be sporadic. An example of a sporadic task would be the obstacles encountered by the vehicle along it's path.
+Real time operating systems can be divided into four classes depending of their characteristics; they can be Static or Dynamic, hard or soft. In this case, we can assume in the worst case that the task is dynamic and hard meaning that the tasks are constructed in runtime and the laxity is very small, failure to meet the deadline can bring harsh consequences. It is also worth mentioning that the arrival times of the tasks are not constant, in fact, they can be sporadic. An example of a sporadic task would be the obstacles encountered by the vehicle along it's path.
 
 Multicast constrained by QoS routing its by itself NP problem usually resolved by Heuristic approaches \cite{HH1} which its optimum performance is assumed out of the scope of the paper but the approach to  intercommunication between individuals of the swarm is by multicast relying on the network infrastructure to take care of the the communication paths leaving to the individuals the task of just establishing the connections although Jin Lul et all. \cite{HH2} propose ad hoc networks accross the individuals of the swarm having them as retrasmission stations and having needs for processing of information in real time.
 
@@ -133,12 +133,12 @@ An underlying realization product of the problem we set out to answer is that cr
 This let us to think that our research and experimentation definitely support further research in this area, and a basis for an expansion of the current research to yield more conclusive results. 
 
 Our research in the available publications and papers indicate that that few if any (none were found) groups or individuals have used a computer networking protocol such as multicast applied to a robot swarm problem to specifically manage behavior (and ultimately communication) between swarm robots.
-Most of the articles and papers found related to robot swarms contain information about using robots swarms, particles or swarm intelligence to improve and optimize the multicast protocol \cite{IG1}\cite{IG2}\cite{IG3}, but not for the inverse relationship, were a networking routing protocol is used to improve robot swarms interactions. 
+Most of the articles and papers found related to robot swarms contain information about using robots swarms, particles or swarm intelligence to improve and optimize the multicast protocol \cite{IG1}\cite{HH2}\cite{IG3}, but not for the inverse relationship, were a networking routing protocol is used to improve robot swarms interactions. 
 Not only is this promising because it is a novel idea that can be applied to other fields, but because there are still many networking protocols that can be used for exploration and improvements in robot swarm behavior (or other behaviors and problems). 
-This let us to think of the substantial value of cross-applications of systems, methods and practices used in a field, applied to another field. A clear example of such a cross-application is the biomimetics field, where biological systems are used as models for design of machines or engineering materials and principles. Other clear examples include neural networks, ant algorithms, genetic algorithms; all which are used in the computer science field successfully (and ironically can be used to improve the multicast protocol itself \cite{IG1}\cite{IG2}\cite{IG3}). 
+This let us to think of the substantial value of cross-applications of systems, methods and practices used in a field, applied to another field. A clear example of such a cross-application is the biomimetics field, where biological systems are used as models for design of machines or engineering materials and principles. Other clear examples include neural networks, ant algorithms, genetic algorithms; all which are used in the computer science field successfully (and ironically can be used to improve the multicast protocol itself \cite{IG1}\cite{HH2}\cite{IG3}). 
 Computer networking protocols and routing algorithms can be cross-applied to other fields. Many of these algorithms and methods have been modeled to efficiently manage packet data across networks, of which multicast is only one of them.  There are many other protocols that can be cross-applied in an interdisciplinary fashion. The computer networking area is a mature field that has evolved and is used today as the basis of many Internet networks. It is possible that many of the elements of such a system such as meshing, spanning tree, policy based forwarding, tunneling, congestion avoidance (to name a few) or other capabilities of networking be applied to robots swarms or any other fields that may warrant an intelligent reuse of these concepts.  Our study and our application of the use of multicast can be a starting point to a) further use multicast with more parameters that define the application of multicast. Our experimental application of multicast only takes into consideration the value of proximity; based on proximity robots belong to a multicast group. Other parameters can be used, for example types of robots, types of environments, or any other qualities that will serve as a criterion from which to define subscriptions to a multicast group. The second interesting application derived from our research is b) further applications of networking concepts such as the already mentioned (spanning tree, meshing, etc.) to similar problems. These concepts of a networking system need only be explored and analyzed in a similar way biological systems are used and applied by biomimetics into other fields. 
 Furthermore there are benefits of having such concepts that can be described as digital concepts. These are conceptually already modeled in the computing field, and as such are easier to implement as programming models. 
-Another strength is that networking tools and systems to analyze networking data and behavior are already present and used to simulate networking behavior. These are known problems with a longstanding in the computer science and telecommunications field, such that there may be a use of tools [4IG] and suites that can be adapted or used to model the possible behavioral cross applications of these concepts.
+Another strength is that networking tools and systems to analyze networking data and behavior are already present and used to simulate networking behavior. These are known problems with a longstanding in the computer science and telecommunications field, such that there may be a use of tools \cite{I4G} and suites that can be adapted or used to model the possible behavioral cross applications of these concepts.
 
 
 \subsection{Benefits of application of multicast}
@@ -258,73 +258,71 @@ For the RTOS community, this presents many rooms for improvements on the current
 \fi
 \begin{thebibliography}{1}
 
-\bibitem{YS1}
-Sam Byford, The Verge, \emph{Google Self Driving Cars}, "http://www.theverge.com/2012/12/23/3797260/self-driving-cars-automated-vehicles", 12-23-2012.
-
 \bibitem{YS2}
 Alanna Durkin, \emph{Robot Swarm}, "http://adurkin.weebly.com/1/post/2013/04/robot-swarm.html", Apr 8 2012.
+
+\bibitem{IG4}
+Al-Holou, N.; Booth, K.K.; Yaprak, E., \emph{"Using computer network simulation tools as supplements to computer network curriculum,"} Frontiers in Education Conference, 2000. FIE 2000. 30th Annual , vol.2, no., pp.S2C/13,S2C/16 vol.2, 2000
+doi: 10.1109/FIE.2000.896644
 
 \bibitem{YS3.5}
 Carlo Ratti, Assaf Biderman, Luigi Farrauto, \emph{Seaswarm}, "http://senseable.mit.edu/seaswarm/", 2013.
 
-\bibitem{YS3.6}
-Joseph L. Flatley, \emph{MIT Seaswarm autonomous robots coming soon to an oil spill near you},
-"http://www.engadget.com/2010/08/27/mit-seaswarm-autonomous-robots-coming-soon-to-an-oil-spill-near/", Aug 27 2010.
+\bibitem{IG3}
+Chun-bo Liu; Hui-jin Wang; Zhi-ping Luo; Xiu-qin Yu; Li-hua Liu, \emph{"QoS Multicast Routing Problem Based on Artificial Fish-Swarm Algorithm,"} Education Technology and Computer Science, 2009. ETCS '09. First International Workshop on , vol.2, no., pp.814,817, 7-8 March 2009
 
-\bibitem{YS3}
-John A. Stankovic, Department of Computer Science, University of Massachusetts,\emph{Real-Time Computing}, Amherst MA, April 16, 1992.
+\bibitem{IG10}
+Guohua Ye; Wang, H.O.; Tanaka, K.; Zhi-Hong Guan, \emph{"Managing group behaviors in swarm systems by associations,"} American Control Conference, 2006 , vol., no., pp.8 pp.,, 14-16 June 2006
 
-\bibitem{HH1}
-Xing Jin and Lin Bai and Yuefeng Ji and Yongmei Sun,
-Semantics, Knowledge and Grid, 2008. SKG '08. Fourth International Conference on, \emph{Probability Convergence based Particle Swarm Optimization for Multiple Constrained QoS Multicast Routing},
-2008, pages 412-415,
+\bibitem{IG1}
+He Deng-xu; Zhu Hua-Zheng; Liu Gui-qing, \emph{"Glowworm swarm optimization algorithm for solving multi-constrained QoS multicast routing problem,"} Computational Intelligence and Security (CIS), 2011 Seventh International Conference on , vol., no., pp.66,70, 3-4 Dec. 2011
+doi: 10.1109/CIS.2011.23
 
 \bibitem{HH2}
 Jin Lu and Dongfeng Zhao and Zhenzhou An and Wenxue Ran,
 Computer Science and Network Technology (ICCSNT), 2011 International Conference on, \emph{Family particle swarm optimization for QoS multicast routing in Ad hoc},
 2011,volume 3, pages 1699-1702,
 
-\bibitem{HH4}
-Tan Ying and Xue Songdong and Zeng Jianchao and Pan Jengshyang and Pan Tienszu,
-Information and Automation (ICIA), 2010 IEEE International Conference on, \emph{Effects of algorithmic parameters on swarm robotic search},
-2010, pages 87-92,
-
-\bibitem{HH5} 
-Sujit, P. B. and Lucani, D.E. and Sousa, J.B.,
-journal=Selected Areas in Communications, IEEE Journal on, \emph{Bridging Cooperative Sensing and Route Planning of Autonomous Vehicles},
-2012, pages 912-922,
-
-\bibitem{IG1}
-He Deng-xu; Zhu Hua-Zheng; Liu Gui-qing, \emph{"Glowworm swarm optimization algorithm for solving multi-constrained QoS multicast routing problem,"} Computational Intelligence and Security (CIS), 2011 Seventh International Conference on , vol., no., pp.66,70, 3-4 Dec. 2011
-doi: 10.1109/CIS.2011.23
-
-\bibitem{IG2}
-Jin Lu; Dongfeng Zhao; Zhenzhou An; Wenxue Ran, \emph{"Family particle swarm optimization for QoS multicast routing in Ad hoc,"} Computer Science and Network Technology (ICCSNT), 2011 International Conference on , vol.3, no., pp.1699,1702, 24-26 Dec. 2011
-
-\bibitem{IG3}
-Chun-bo Liu; Hui-jin Wang; Zhi-ping Luo; Xiu-qin Yu; Li-hua Liu, \emph{"QoS Multicast Routing Problem Based on Artificial Fish-Swarm Algorithm,"} Education Technology and Computer Science, 2009. ETCS '09. First International Workshop on , vol.2, no., pp.814,817, 7-8 March 2009
-
-\bibitem{IG4}
-Al-Holou, N.; Booth, K.K.; Yaprak, E., \emph{"Using computer network simulation tools as supplements to computer network curriculum,"} Frontiers in Education Conference, 2000. FIE 2000. 30th Annual , vol.2, no., pp.S2C/13,S2C/16 vol.2, 2000
-doi: 10.1109/FIE.2000.896644
+\bibitem{YS3}
+John A. Stankovic, \emph{Real-Time Computing}, Department of Computer Science, University of Massachusetts,Amherst MA, April 16, 1992.
 
 \bibitem{IG5}
 Jong Sun Kim; Myung Hwan Tak; Young Hoon Joo; Young Jo Cho; Chang Eun Lee; Sang Hoon Ji, \emph{"Behavior control for the swarm robots with network connectivity,"} Ubiquitous Robots and Ambient Intelligence (URAI), 2012 9th International Conference on , vol., no., pp.337,340, 26-28 Nov. 2012
 doi: 10.1109/URAI.2012.6463009
 
+\bibitem{YS3.6}
+Joseph L. Flatley, \emph{MIT Seaswarm autonomous robots coming soon to an oil spill near you},
+"http://www.engadget.com/2010/08/27/mit-seaswarm-autonomous-robots-coming-soon-to-an-oil-spill-near/", Aug 27 2010.
+
 \bibitem{IG6}
 Mao Yang; Zongchun Liu, \emph{"Control of collision avoidance for swarm robots foraging in complex environment,"} Intelligent Control and Information Processing (ICICIP), 2012 Third International Conference on , vol., no., pp.525,530, 15-17 July 20127
 
-\bibitem{IG7}
-V. Gazi and K. M. Passino, \emph{“A class of repulsion/attraction forces for stable swarm aggregations,”} Int. J. Control, vol. 77, no. 18, pp.  1567–1579, 2004
-
-\bibitem{IG8}
-Zongchun Liu; Yantao Tian; Mao Yang, \emph{"Behavior analysis in free space and obstacle environment of swarm robot systems based on vicsek model,"} Advanced Computer Control (ICACC), 2010 2nd International Conference on , vol.1, no., pp.224,229, 27-29 March 2010
+\bibitem{YS1}
+Sam Byford, The Verge, \emph{Google Self Driving Cars}, "http://www.theverge.com/2012/12/23/3797260/self-driving-cars-automated-vehicles", 12-23-2012.
 
 \bibitem{IG9}
 Sharma, R.; Ghose, D., \emph{"Swarm Intelligence based Collision Avoidance Between Realistically Modelled UAV Clusters,"} American Control Conference, 2007. ACC '07 , vol., no., pp.3892,3897, 9-13 July 2007
 
-\bibitem{IG10}
-Guohua Ye; Wang, H.O.; Tanaka, K.; Zhi-Hong Guan, \emph{"Managing group behaviors in swarm systems by associations,"} American Control Conference, 2006 , vol., no., pp.8 pp.,, 14-16 June 2006
+\bibitem{HH5} 
+Sujit, P. B. and Lucani, D.E. and Sousa, J.B.,
+\emph{Bridging Cooperative Sensing and Route Planning of Autonomous Vehicles}, journal=Selected Areas in Communications, IEEE Journal on,
+2012, pages 912-922,
+
+\bibitem{HH4}
+Tan Ying and Xue Songdong and Zeng Jianchao and Pan Jengshyang and Pan Tienszu,
+Information and Automation (ICIA), 2010 IEEE International Conference on, \emph{Effects of algorithmic parameters on swarm robotic search},
+2010, pages 87-92,
+
+\bibitem{IG7}
+V. Gazi and K. M. Passino, \emph{“A class of repulsion/attraction forces for stable swarm aggregations,”} Int. J. Control, vol. 77, no. 18, pp.  1567–1579, 2004
+
+\bibitem{HH1}
+Xing Jin and Lin Bai and Yuefeng Ji and Yongmei Sun,
+Semantics, Knowledge and Grid, 2008. SKG '08. Fourth International Conference on, \emph{Probability Convergence based Particle Swarm Optimization for Multiple Constrained QoS Multicast Routing},
+2008, pages 412-415,
+
+\bibitem{IG8}
+Zongchun Liu; Yantao Tian; Mao Yang, \emph{"Behavior analysis in free space and obstacle environment of swarm robot systems based on vicsek model,"} Advanced Computer Control (ICACC), 2010 2nd International Conference on , vol.1, no., pp.224,229, 27-29 March 2010
+
 \end{thebibliography}
 \end{document}
